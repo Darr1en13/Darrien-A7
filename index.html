@@ -117,24 +117,23 @@ td{
         var random = Math.floor(Math.random() * (model.boxes));
         console.log("its box # " + random + "initializeModel was");  
         model.prize = random;
+        model.color;
+        model.click=true;
         
         }
     //============================================ View       
         function updateView()
         {
-            console.log("updateView was called");
+          console.log("updateView was called");
           $('#boxx').empty(); 
-                    for (var i =0 ;i<model.boxes;i++) 
-                    {
-                       
-                        var item = $("<div></div>");
-                        item.attr("id", i);
-                        item.addClass("rectangle");
-                        $('#boxx').append(item);
-                        
-                    }    
-            
-        }
+            for (var i =0 ;i<model.boxes;i++) 
+                {
+                var item = $("<div></div>");
+                item.attr("id", i);
+                item.addClass("rectangle");
+                $('#boxx').append(item);
+                }
+          }
     //============================================ Controller
     
         initializeModel();
@@ -145,7 +144,8 @@ td{
             
           console.log("that is box number " + $(this).attr("id"));
           var boxId=$(this).attr("id");
-          
+      if(model.click!=false)
+      {
           if(boxId == model.prize)
           {
               console.log("youre winner");
@@ -183,7 +183,7 @@ td{
     
          $("#guess").append("Boxes Picked " + model.guesses);     
        
-       
+      }
     });
     
       $('#yes').click(function() 
@@ -198,6 +198,7 @@ td{
       {
                 
         $('#myModal').modal('hide');
+        model.click=false;
 
       });
 
