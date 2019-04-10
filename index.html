@@ -1,0 +1,212 @@
+<html>
+<head>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">        
+
+<style>
+   #rectangle{
+    width:450px;
+    height:150px;
+    background:black;
+    text-align:center
+} 
+
+ul{
+    background-color:black;
+    width:450;
+    height:150px
+    
+}
+
+td,th,table{
+    text-align: center;   
+    border: 3px solid black;
+    table-layout: fixed;
+	border-collapse:separate;
+    padding: 3px;
+
+
+}
+.center {
+    margin-left:auto; 
+    margin-right:auto;
+  }
+
+td{
+    
+  background-color:black;
+    width:450;
+    height:150px
+}
+    .rectangle {
+  box-shadow: 0 4px 8px 0 rgba(255,0,0,1);
+  margin:4px;
+  transition: 0.3s;
+  border-radius: 5px; 
+  background-color:black;
+  height:150px;
+  width:450px;
+}
+
+.rectangleError{
+  box-shadow: 0 4px 8px 0 rgba(255,0,0,1);
+  margin:4px;
+  transition: 0.3s;
+  border-radius: 5px; 
+  background-color:red;
+  height:150px;
+  width:450px;   
+}
+.rectangleWin{
+  box-shadow: 0 4px 8px 0 rgba(255,0,0,1);
+  margin:4px;
+  transition: 0.3s;
+  border-radius: 5px; 
+  background-color:red;
+  height:150px;
+  width:450px;   
+}
+
+</style>
+  
+</head>    
+
+
+ 
+    <div class="container">
+    <h4 style = text-align:center>PICK A BOX, ANY BOX</h4> 
+    <div id="boxx" class="row justify-content-center"></div>
+    <h4 id="guess">Boxes Picked </h4>
+    </div>
+ <div class="modal" tabindex="-1" role="dialog" id="myModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Play Again?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Would you like to play again ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="yes">Yes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="no">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>        
+          
+          
+    <script>
+    /* global $ */
+
+    $(document).ready(function() 
+    {
+       var model={};
+    //============================================ Model
+        function initializeModel()
+        {
+        model.boxes=6;
+        model.guesses=0;
+        var random = Math.floor(Math.random() * (model.boxes));
+        console.log("its box # " + random + "initializeModel was");  
+        model.prize = random;
+        
+        }
+    //============================================ View       
+        function updateView()
+        {
+            console.log("updateView was called");
+          $('#boxx').empty(); 
+                    for (var i =0 ;i<model.boxes;i++) 
+                    {
+                       
+                        var item = $("<div></div>");
+                        item.attr("id", i);
+                        item.addClass("rectangle");
+                        $('#boxx').append(item);
+                        
+                    }    
+            
+        }
+    //============================================ Controller
+    
+        initializeModel();
+        updateView();
+    
+        $(document).on("click",".rectangle",function() 
+        {
+            
+          console.log("that is box number " + $(this).attr("id"));
+          var boxId=$(this).attr("id");
+          
+          if(boxId == model.prize)
+          {
+              console.log("youre winner");
+              //turns green 
+              //actiavted modal
+              //add 1 to guesses
+              model.guesses++;
+              console.log(model.guesses);
+            
+        
+           	  $(this).css("background-color", "green");
+              console.log(this);
+    
+    
+              $('#myModal').modal('show');
+          }
+          else
+          {
+            //turns red
+            //add 1 to guesses
+            console.log("you are wrong");
+           // $($(this).attr("id")).removeClass("card");
+            //$($(this).attr("id")).addClass("cardError");
+            
+           		$(this).css("background-color", "red");
+    
+            
+           
+            
+            model.guesses++;
+            console.log(model.guesses + " guesses");
+            
+          }
+         $('#guess').empty(); 
+    
+         $("#guess").append("Boxes Picked " + model.guesses);     
+       
+       
+    });
+    
+      $('#yes').click(function() 
+      {
+                        
+         $('#myModal').modal('hide');
+         initializeModel();
+         updateView();
+      });
+                     
+      $('#no').click(function() 
+      {
+                
+        $('#myModal').modal('hide');
+
+      });
+
+    });
+    
+
+        
+    </script>      
+          
+          
+    
+</html>
