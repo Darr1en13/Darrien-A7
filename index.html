@@ -3,45 +3,12 @@
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">        
 
 <style>
-   #rectangle{
-    width:450px;
-    height:150px;
-    background:black;
-    text-align:center
-} 
-
-ul{
-    background-color:black;
-    width:450;
-    height:150px
-    
-}
-
-td,th,table{
-    text-align: center;   
-    border: 3px solid black;
-    table-layout: fixed;
-	border-collapse:separate;
-    padding: 3px;
-
-
-}
-.center {
-    margin-left:auto; 
-    margin-right:auto;
-  }
-
-td{
-    
-  background-color:black;
-    width:450;
-    height:150px
-}
-    .rectangle {
-  box-shadow: 0 4px 8px 0 rgba(255,0,0,1);
+.rectangle 
+{
+  box-shadow: 0 4px 8px 0 rgba(0,0,255,1);
   margin:4px;
   transition: 0.3s;
-  border-radius: 5px; 
+  border-radius: 50px; 
   background-color:black;
   height:150px;
   width:450px;
@@ -73,7 +40,7 @@ td{
 
  
     <div class="container">
-    <h4 style = text-align:center>PICK A BOX, ANY BOX</h4> 
+    <h4 style = text-align:center>Find the Treasure</h4> 
     <div id="boxx" class="row justify-content-center"></div>
     <h4 id="guess">Boxes Picked </h4>
     </div>
@@ -82,8 +49,6 @@ td{
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Play Again?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
@@ -98,14 +63,13 @@ td{
 </div>
 
 
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>        
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>        
           
           
-    <script>
+<script>
     /* global $ */
-
     $(document).ready(function() 
     {
        var model={};
@@ -119,7 +83,6 @@ td{
         model.prize = random;
         model.color;
         model.click=true;
-        
         }
     //============================================ View       
         function updateView()
@@ -135,15 +98,13 @@ td{
                 }
           }
     //============================================ Controller
-    
         initializeModel();
         updateView();
-    
-        $(document).on("click",".rectangle",function() 
-        {
-            
-          console.log("that is box number " + $(this).attr("id"));
-          var boxId=$(this).attr("id");
+        
+  $(document).on("click",".rectangle",function() 
+    {
+      console.log("that is box number " + $(this).attr("id"));
+      var boxId=$(this).attr("id");
       if(model.click!=false)
       {
           if(boxId == model.prize)
@@ -154,12 +115,8 @@ td{
               //add 1 to guesses
               model.guesses++;
               console.log(model.guesses);
-            
-        
            	  $(this).css("background-color", "green");
               console.log(this);
-    
-    
               $('#myModal').modal('show');
           }
           else
@@ -167,17 +124,9 @@ td{
             //turns red
             //add 1 to guesses
             console.log("you are wrong");
-           // $($(this).attr("id")).removeClass("card");
-            //$($(this).attr("id")).addClass("cardError");
-            
-           		$(this).css("background-color", "red");
-    
-            
-           
-            
+           	$(this).css("background-color", "red"); //<---- i know this is wrong, im still actively working on it
             model.guesses++;
             console.log(model.guesses + " guesses");
-            
           }
          $('#guess').empty(); 
     
@@ -196,18 +145,9 @@ td{
                      
       $('#no').click(function() 
       {
-                
         $('#myModal').modal('hide');
         model.click=false;
-
       });
-
     });
-    
-
-        
-    </script>      
-          
-          
-    
+</script>      
 </html>
